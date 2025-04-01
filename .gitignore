@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .prettierrc.json
+package-lock.json
 
 # Editor directories and files
 .vscode/*
