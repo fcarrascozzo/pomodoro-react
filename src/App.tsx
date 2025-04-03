@@ -6,10 +6,10 @@ import { DefaultInput } from './components/DefaultInput';
 import { Cycles } from './components/Cycles';
 import { DefaultButton } from './components/DefaultButton';
 import { PlayCircleIcon } from 'lucide-react';
+import { Footer } from './components/Footer';
 
 import './styles/theme.css';
 import './styles/global.css';
-import { Footer } from './components/Footer';
 
 export function App() {
   return (
