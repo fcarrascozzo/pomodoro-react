@@ -4,17 +4,18 @@ import {
   MoonIcon,
   SettingsIcon,
   SunIcon,
-} from 'lucide-react';
-import { useState, useEffect } from 'react';
+} from "lucide-react";
+import { useState, useEffect } from "react";
 
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
+import { Link } from "react-router";
 
-type AvailableThemes = 'dark' | 'light';
+type AvailableThemes = "dark" | "light";
 
 export function Menu() {
   const [theme, setTheme] = useState<AvailableThemes>(() => {
     const storageTheme =
-      (localStorage.getItem('theme') as AvailableThemes) || 'dark';
+      (localStorage.getItem("theme") as AvailableThemes) || "dark";
 
     return storageTheme;
   });
@@ -25,53 +26,53 @@ export function Menu() {
   };
 
   function handleThemeChange(
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) {
     event.preventDefault();
 
-    setTheme(prevTheme => {
-      const nextTheme = prevTheme === 'dark' ? 'light' : 'dark';
+    setTheme((prevTheme) => {
+      const nextTheme = prevTheme === "dark" ? "light" : "dark";
       return nextTheme;
     });
   }
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
     return () => {};
   }, [theme]);
 
   return (
     <div className={styles.menu}>
-      <a
+      <Link
         className={styles.menuLink}
-        href='#'
-        aria-label='Ir para a Home'
-        title='Ir para a Home'
+        to="/"
+        aria-label="Ir para a Home"
+        title="Ir para a Home"
       >
         <HouseIcon />
-      </a>
+      </Link>
       <a
         className={styles.menuLink}
-        href='#'
-        aria-label='Ver Histórico'
-        title='Ver Histórico'
+        href="#"
+        aria-label="Ver Histórico"
+        title="Ver Histórico"
       >
         <HistoryIcon />
       </a>
       <a
         className={styles.menuLink}
-        href='#'
-        aria-label='Configurações'
-        title='Configurações'
+        href="#"
+        aria-label="Configurações"
+        title="Configurações"
       >
         <SettingsIcon />
       </a>
       <a
         className={styles.menuLink}
-        href='#'
-        aria-label='Mudar Tema'
-        title='Mudar Tema'
+        href="#"
+        aria-label="Mudar Tema"
+        title="Mudar Tema"
         onClick={handleThemeChange}
       >
         {nextThemeIcon[theme]}
