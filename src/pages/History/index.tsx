@@ -8,12 +8,14 @@ import { formatDate } from "../../utils/formatDate";
 import { useEffect, useState } from "react";
 import { getTaskStatus } from "../../utils/getTaskStatus";
 import { sortTasks, SortTasksOptions } from "../../utils/sortTasks";
+import { showMessage } from "../../adapters/showMessage";
+import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 
 import styles from "./styles.module.css";
-import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 
 export function History() {
   const { state, dispatch } = useTaskContext();
+  const [confirmClearHistory, setConfirmClearHistory] = useState(false);
   const hasTasks = state.tasks.length > 0;
 
   const [sortTasksOptions, setSortTaskOptions] = useState<SortTasksOptions>(
@@ -37,6 +39,14 @@ export function History() {
     }));
   }, [state.tasks]);
 
+  useEffect(() => {
+    if (!confirmClearHistory) return;
+
+    setConfirmClearHistory(false);
+
+    dispatch({ type: TaskActionTypes.RESET_STATE });
+  }, [confirmClearHistory, dispatch]);
+
   function handleSortTasks({
     field,
   }: Omit<SortTasksOptions, "tasks" | "direction">) {
@@ -54,9 +64,14 @@ export function History() {
   }
 
   function handleResetHistory() {
-    if (!confirm("Tem certeza")) return;
+    showMessage.dismiss();
 
-    dispatch({ type: TaskActionTypes.RESET_STATE });
+    showMessage.confirm(
+      "Deseja realmente excluir o histórico?",
+      (confirmation) => {
+        setConfirmClearHistory(confirmation);
+      }
+    );
   }
 
   return (
