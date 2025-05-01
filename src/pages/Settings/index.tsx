@@ -6,6 +6,7 @@ import { Heading } from "../../components/Heading";
 import { MainTemplate } from "../../templates/MainTemplate";
 import { useRef } from "react";
 import { useTaskContext } from "../../contexts/TaskContext/useTaskState";
+import { showMessage } from "../../adapters/showMessage";
 
 export function Settings() {
   const { state } = useTaskContext();
@@ -15,12 +16,61 @@ export function Settings() {
 
   function handleSaveSettings(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    showMessage.dismiss();
 
-    const workTime = workTimeInput.current?.value;
-    const shortBreakTime = shortBreakTimeInput.current?.value;
-    const longBreakTime = longBreakTimeInput.current?.value;
+    const workTime = Number(workTimeInput.current?.value);
+    const shortBreakTime = Number(shortBreakTimeInput.current?.value);
+    const longBreakTime = Number(longBreakTimeInput.current?.value);
 
-    console.log(workTime, shortBreakTime, longBreakTime);
+    const formErrors = validateSettings(
+      workTime,
+      shortBreakTime,
+      longBreakTime
+    );
+
+    if (formErrors.length > 0) {
+      formErrors.forEach(showMessage.error);
+      return;
+    }
+  }
+
+  function validateSettings(
+    workTime: number,
+    shortBreakTime: number,
+    longBreakTime: number
+  ): string[] {
+    const errors = [];
+
+    if (isNaN(workTime) || isNaN(shortBreakTime) || isNaN(longBreakTime)) {
+      errors.push("Digite apenas números para todos os campos!");
+      return errors;
+    }
+
+    if (workTime < 1 || workTime > 60) {
+      errors.push("Digite valores entre 1 e 60 para foco!");
+    }
+
+    if (shortBreakTime < 1 || shortBreakTime > 10) {
+      errors.push("Digite valores entre 1 e 10 para descanso curto!");
+    }
+
+    if (longBreakTime < 1 || longBreakTime > 30) {
+      errors.push("Digite valores entre 1 e 30 para descanso longo!");
+    }
+
+    if (workTime <= shortBreakTime) {
+      errors.push("O tempo de foco deve ser maior que o descanso curto");
+    }
+
+    if (workTime <= longBreakTime) {
+      errors.push("O tempo de foco deve ser maior que o descanso longo");
+    }
+
+    if (shortBreakTime > longBreakTime) {
+      errors.push("O descanso curto deve ser menor que o descanso longo");
+    }
+
+    return errors;
   }
 
   return (
@@ -44,6 +94,7 @@ export function Settings() {
               labelText="Foco"
               ref={workTimeInput}
               defaultValue={state.config.workTime}
+              type="number"
             />
           </div>
 
@@ -53,6 +104,7 @@ export function Settings() {
               labelText="Descanso Curto"
               ref={shortBreakTimeInput}
               defaultValue={state.config.shortBreakTime}
+              type="number"
             />
           </div>
 
@@ -62,6 +114,7 @@ export function Settings() {
               labelText="Descanso Longo"
               ref={longBreakTimeInput}
               defaultValue={state.config.longBreakTime}
+              type="number"
             />
           </div>
 
