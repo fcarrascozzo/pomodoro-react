@@ -1,54 +1,44 @@
-# React + TypeScript + Vite
+# ⏱️ Chronos Pomodoro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Chronos Pomodoro é uma aplicação de gerenciamento de tempo baseada na Técnica Pomodoro. Com ela, você pode organizar suas tarefas, alternar entre períodos de foco e descanso, visualizar seu histórico e personalizar os tempos conforme sua preferência. Tudo isso com uma interface moderna, modo escuro e performance otimizada com React + Vite.
 
-Currently, two official plugins are available:
+![alt text](image.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias
 
-## Expanding the ESLint configuration
+- [React 19](https://react.dev/)
+- [Vite 6](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Router 7](https://reactrouter.com/en/main)
+- [Lucide Icons](https://lucide.dev/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
+- [date-fns](https://date-fns.org/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Funcionalidades
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Início de sessões de foco, descanso curto e descanso longo
+- Histórico de sessões com status e duração
+- Personalização dos tempos de cada etapa
+- Modo escuro incluso 🌙
+- Interface simples e responsiva
+- Notificações toast ao iniciar/encerrar sessões
+
+## 🛠️ Instalação e uso local
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/react-pomodoro.git
+cd react-pomodoro
+
+# Instale as dependências
+npm install
+
+# Rode em modo de desenvolvimento
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📝 Licença
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Este projeto foi desenvolvido como parte do curso [Curso de React.js e Next.js Completo](https://www.udemy.com/course/curso-de-reactjs-nextjs-completo-do-basico-ao-avancado) na Udemy.  
+Você pode usá-lo como base para estudos e projetos pessoais.  
+**Não é recomendado para produção sem as devidas adaptações.**
